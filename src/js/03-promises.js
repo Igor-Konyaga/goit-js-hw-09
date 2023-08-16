@@ -22,9 +22,9 @@ formEl.addEventListener('submit', onFormSumbmit);
 function onFormSumbmit(e) {
   e.preventDefault();
 
-  let delayValue = delayEl.value;
-  const stepValue = stepEl.value;
-  const amountValue = amountEl.value;
+  let delayValue = Number(delayEl.value);
+  let stepValue = Number(stepEl.value);
+  let amountValue = Number(amountEl.value);
 
   // const intervalId = setInterval(() => {
 	for (let index = 1; index <= amountValue; index++) {
@@ -34,8 +34,8 @@ function onFormSumbmit(e) {
     .catch(({ position, delay }) =>
       console.log(`❌ Rejected promise ${position} in ${delay}ms`)
     );
-      delayValue+=stepValue
-	}
+      delayValue+=stepValue;
+	};
    
 
 
