@@ -8,6 +8,7 @@ const days = document.querySelector('[data-days]');
 const hours = document.querySelector('[data-hours]');
 const minutes = document.querySelector('[data-minutes]');
 const seconds = document.querySelector('[data-seconds]');
+const resetEl = document.querySelector('.btn');
 
 let id = null;
 let userDate = null;
@@ -40,13 +41,36 @@ function onStartCountDown(e) {
     let convert = convertMs(timeDifference);
 
     btnEl.disabled = true;
-	 inputEl.disabled = true;
+    inputEl.disabled = true;
 
     days.textContent = addLeadingZero(convert.days);
     hours.textContent = addLeadingZero(convert.hours);
     minutes.textContent = addLeadingZero(convert.minutes);
     seconds.textContent = addLeadingZero(convert.seconds);
+
+    if (
+      days.textContent === '00' &&
+      hours.textContent === '00' &&
+      minutes.textContent === '00' &&
+      seconds.textContent === '00'
+    ) {
+      clearInterval(id);
+    }
   }, 1000);
+}
+
+resetEl.addEventListener('click', onReset);
+
+function onReset() {
+  btnEl.disabled = false;
+  inputEl.disabled = false;
+
+  clearInterval(id);
+
+  days.textContent = '00';
+  hours.textContent = '00';
+  minutes.textContent = '00';
+  seconds.textContent = '00';
 }
 
 function convertMs(ms) {
