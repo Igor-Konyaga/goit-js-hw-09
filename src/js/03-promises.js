@@ -14,7 +14,7 @@ function createPromise(position, delay) {
         reject({ position, delay });
       }
     }, delay);
-  });    
+  });
 }
 
 formEl.addEventListener('submit', onFormSumbmit);
@@ -26,18 +26,22 @@ function onFormSumbmit(e) {
   let stepValue = Number(stepEl.value);
   let amountValue = Number(amountEl.value);
 
-  // const intervalId = setInterval(() => {
-	for (let index = 1; index <= amountValue; index++) {
-	   createPromise(index, delayValue).then(({ position, delay }) =>
-      console.log(`✅ Fulfilled promise ${position} in ${delay} ms`)
-    )
-    .catch(({ position, delay }) =>
-      console.log(`❌ Rejected promise ${position} in ${delay}ms`)
-    );
-      delayValue+=stepValue;
-	};
-   
+  if (delayValue < 0 || stepValue < 0 || amountValue <= 0) {
+	console.log('Заповніть коректно поля!!!')
+	formEl.reset()
+    return;
+  }
 
+  for (let index = 1; index <= amountValue; index++) {
+    createPromise(index, delayValue)
+      .then(({ position, delay }) =>
+        console.log(`✅ Fulfilled promise ${position} in ${delay} ms`)
+      )
+      .catch(({ position, delay }) =>
+        console.log(`❌ Rejected promise ${position} in ${delay}ms`)
+      );
+    delayValue += stepValue;
+  }
 
   formEl.reset();
 }
